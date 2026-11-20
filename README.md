@@ -1,5 +1,126 @@
 ---**Proyecto desarrollado por el equipo: 404: Brain Not Found**---
 
+## En la carpeta Catalogo carreras UASD1 encontrar la :
+
+## Aplicación de escritorio en Java (Swing) conectada a una base de datos SQLite que funciona como un Catálogo Académico de las carreras de la UASD.
+
+# --**Lenguaje, Arquitectura y Tecnologías utilizadas**-- 
+
+• Interfaz Gráfica (GUI): Construida con javax.swing (JFrame, JDialog, JTable, JComboBox, CardLayout, etc.) 
+con una paleta de colores institucionales (azul marino y tonos neutros).
+
+• Base de Datos: Que utiliza SQLite (jdbc:sqlite:uasd_catalogo.db) mediante JDBC para almacenar y consultar la información de forma local.
+
+ # --**Estructura de la Base de Datos**--
+
+Al iniciarse, el método inicializarBaseDatosSQLite() crea automáticamente cuatro tablas si no existen:
+1. usuarios: Almacena credenciales de acceso (usuario, clave).
+
+2. facultades: Guarda el id, nombre y la ruta de la imagen del logo (del 1 al 9).
+
+3. escuelas: Relacionada con facultades mediante facultad_id.
+
+4. carreras: Contiene codigo, nombre, creditos y su relación con escuelas (escuela_id).
+
+## --**Backend (Lógica del Servidor, Datos y Escritorio)**--
+Es la capa encargada de procesar los datos, validar reglas y comunicarse con el almacenamiento. Está desarrollada en Java y SQL.
+
+• Motor de Base de Datos: SQLite (archivo local uasd_catalogo.db) conectado mediante el controlador JDBC (org.sqlite.JDBC).
+
+• Gestión de Conexiones y Consultas: Uso de DriverManager, Connection, Statement, PreparedStatement (para evitar inyección SQL) y ResultSet.
+
+• Inicialización y Esquema (inicializarBaseDatosSQLite): Creación automática de las tablas (usuarios, facultades, escuelas, carreras), migración de columnas (ALTER TABLE) e inserción de usuarios por defecto.
+
+• Lógica de Autenticación (validarUsuario): Consulta a la base de datos para verificar si las credenciales ingresadas existen.
+
+• Construcción Dinámica de Consultas (cargarTabla): Ensamblaje de sentencias SELECT con JOIN entre tres tablas, aplicando filtros dinámicos (WHERE, LIKE) y ordenamiento (ORDER BY) según lo que el usuario elija en el frontend.
+
+## --**Frontend (Interfaz Gráfica e Interactividad con el Usuario)**--
+Es toda la capa visual con la que interactúa el usuario o usuaria. Y está desarrollada en Java Swing y AWT.
+
+• Ventanas y Contenedores: JFrame (ventana principal), JDialog (ventana de inicio de sesión), JPanel y CardLayout (para alternar entre el banner general y el de cada facultad).
+
+• Componentes de Entrada y Control: JTextField (barra de búsqueda), JPasswordField (clave), JComboBox (listas desplegables de facultades, escuelas y ordenamiento), JCheckBox (orden ascendente) y JButton.
+
+• Visualización de Datos: JTable y DefaultTableModel para mostrar el listado de carreras en filas y columnas, junto con JScrollPane y JLabel para textos e imágenes.
+
+• Diseño y Estilos: Paleta de colores personalizada (Color), bordes (LineBorder, EmptyBorder, TitledBorder), fuentes (Font) y un DefaultTableCellRenderer para alternar el color de las filas.
+
+• Eventos: ActionListener para capturar clics en botones, menús y cambios en los selectores.
+
+## --Estructura del Proyecto y Función de Cada Archivo--
+
+
+1. CatalogoCarrerasUASD1.java (Código Fuente)
+
+Es el núcleo del sistema. Contiene tanto la interfaz gráfica (Swing) como la lógica y acceso a datos (JDBC). Se encarga de arrancar la aplicación, dibujar las ventanas, validar el inicio de sesión y ejecutar las consultas SQL.
+
+2. uasd_catalogo.db (Base de Datos)
+
+Es el archivo de base de datos SQLite donde se guarda toda la información de forma persistente.
+
+• Si el archivo no existe, el programa lo crea automáticamente en la raíz del proyecto al ejecutarse por primera vez.
+• Almacena las 4 tablas del sistema: usuarios, facultades, escuelas y carreras.
+
+3. sqlite-jdbc-x.x.x.jar (Librería / Dependencia)
+
+Es el conector oficial (Driver JDBC) que permite que Java entienda y se comunique con el archivo uasd_catalogo.db. Sin este archivo agregado al Classpath del proyecto, el programa lanzará un error (ClassNotFoundException) al intentar abrir la base de datos.
+
+4. escudo_uasd.png (Recurso Gráfico)
+
+Imagen del escudo de la universidad. El programa la carga en tres lugares:
+• En la ventana de inicio de sesión (Login).
+• En la esquina superior izquierda del encabezado principal.
+• A ambos lados del banner cuando se selecciona la vista "TODAS LAS CARRERAS".
+
+5. facultad_1.png hasta facultad_9.png (Recursos Gráficos)
+
+Son los logotipos individuales de cada una de las 9 facultades de la UASD. Se muestran dinámicamente en la tarjeta de identidad superior cuando el usuario filtra las carreras por una facultad en específico.
+
+
+# --**Flujo y Funcionalidades Principales**--
+
+• Inicio de Sesión (mostrarLogin): Antes de abrir el catálogo, muestra una ventana modal (JDialog) que valida el usuario y la contraseña contra la base de datos.    Si se cancela, el programa se cierra.
+
+• Encabezado y Barra de Menú:
+
+• Muestra el escudo de la UASD, el título y el usuario activo.
+	
+• Incluye un menú superior con accesos rápidos para navegar por el catálogo, aplicar/limpiar filtros, cambiar la altura de las filas (Vista compacta) y cerrar       sesión.
+
+• Panel de Filtros y Búsqueda:
+  
+  • Búsqueda por texto: Filtra coincidencias en tiempo real (al presionar Enter o Aplicar filtros) por código, carrera, escuela o facultad.
+	
+  • Filtros en cascada: Al seleccionar una Facultad, el selector de Escuelas se actualiza automáticamente para mostrar solo las escuelas pertenecientes a dicha        facultad.
+	
+• Ordenamiento: Permite ordenar los resultados por Facultad, Escuela, Carrera, Código o Créditos de forma ascendente o descendente.
+
+• Tarjeta de Identidad Dinámica (CardLayout): Cambia visualmente según el filtro activo; muestra el banner general de "TODAS LAS CARRERAS" o el logotipo y nombre    específico de la facultad seleccionada.
+
+• Tabla de Resultados (JTable): Despliega las carreras en 5 columnas no editables (Código, Carrera, Créditos, Escuela, Facultad) con filas alternadas en color       para facilitar la lectura.
+
+• Barra de Estado: Indica cuántas carreras se encontraron bajo el filtro actual e incluye un botón para cerrar sesión y volver al login.
+
+
+## --Capturas de Pantalla--
+
+<img width="416" height="273" alt="Muetras inicio de sesion" src="https://github.com/user-attachments/assets/94cd29d3-cd62-402c-b07f-a3da937a1985" />
+
+
+<img width="1920" height="1080" alt="Muestra tras el inicio de sesion" src="https://github.com/user-attachments/assets/cedc9446-331b-49cb-84cd-df6e03a90709" />
+
+
+<img width="1920" height="1080" alt="Muestra de busqueda y flitros aplicados" src="https://github.com/user-attachments/assets/d6aab83e-9d3c-4627-99f1-9d67168470ec" />
+
+
+
+
+
+
+▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+
+## En la carpeta Web catalogo encontrar la :
 ## Aplicación Web (híbrida con pasarela de escritorio) diseñada para consultar de manera dinámica las 9 facultades, 50 escuelas, 61 carreras y sus respectivos pensum académicos.
 
 # --**Lenguajes y Tecnologías Utilizadas**--
