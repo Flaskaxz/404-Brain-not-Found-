@@ -165,7 +165,6 @@ Licenciatura en microbiología (40701 - P-mirc)
 Licenciatura en química (40801 - P-quim)
 Tecnólogo superior en alimentos (40803 - P-tasl)
 
-
 ->**JSP (JavaServer Pages)**: Motor de plantillas utilizado para renderizar la vista principal desde el servidor.
 
 ->**HTML5 y CSS3**: Estructuración semántica y diseño visual responsivo con temática institucional
