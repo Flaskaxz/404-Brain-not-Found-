@@ -41,8 +41,6 @@ public class CatalogoCarrerasUASD1 extends JFrame {
     private void inicializarBaseDatosSQLite() {
         try {
             Class.forName("org.sqlite.JDBC");
-            System.out.println("BASE DE DATOS UTILIZADA: "
-                    + new java.io.File("uasd_catalogo.db").getAbsolutePath());
             try (Connection conn = DriverManager.getConnection(URL_BD);
                  Statement stmt = conn.createStatement()) {
                 stmt.execute("CREATE TABLE IF NOT EXISTS usuarios (usuario TEXT PRIMARY KEY, clave TEXT)");
@@ -304,14 +302,31 @@ public class CatalogoCarrerasUASD1 extends JFrame {
         tablaCarreras.setGridColor(new Color(232,236,242));
         tablaCarreras.setShowVerticalLines(false);
         tablaCarreras.setIntercellSpacing(new Dimension(0,1));
-        tablaCarreras.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
-        tablaCarreras.getTableHeader().setBackground(AZUL);
-        tablaCarreras.getTableHeader().setForeground(Color.WHITE);
-        tablaCarreras.getTableHeader().setPreferredSize(new Dimension(0,34));
+        JTableHeader encabezado = tablaCarreras.getTableHeader();
+        encabezado.setFont(new Font("SansSerif", Font.BOLD, 12));
+        encabezado.setBackground(AZUL);
+        encabezado.setForeground(Color.WHITE);
+        encabezado.setOpaque(true);
+        encabezado.setPreferredSize(new Dimension(0,36));
+        encabezado.setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                JLabel l = (JLabel) super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+                l.setOpaque(true);
+                l.setBackground(AZUL);
+                l.setForeground(Color.WHITE);
+                l.setFont(new Font("SansSerif", Font.BOLD, 12));
+                l.setHorizontalAlignment(SwingConstants.LEFT);
+                l.setBorder(new EmptyBorder(0, 7, 0, 7));
+                return l;
+            }
+        });
 
         tablaCarreras.getColumnModel().getColumn(0).setPreferredWidth(80);
         tablaCarreras.getColumnModel().getColumn(1).setPreferredWidth(340);
-        tablaCarreras.getColumnModel().getColumn(2).setPreferredWidth(85);
+        tablaCarreras.getColumnModel().getColumn(2).setPreferredWidth(105);
         tablaCarreras.getColumnModel().getColumn(3).setPreferredWidth(240);
         tablaCarreras.getColumnModel().getColumn(4).setPreferredWidth(270);
 
@@ -448,7 +463,7 @@ public class CatalogoCarrerasUASD1 extends JFrame {
                 int n=0;
                 while(rs.next()) {
                     int cr=rs.getInt("creditos");
-                    String creditos=rs.wasNull() || cr<=0 ? "No registrado" : String.valueOf(cr);
+                    String creditos=rs.wasNull() || cr<=0 ? "No registrado" : cr + " créditos";
                     modeloTabla.addRow(new Object[]{rs.getString("codigo"),rs.getString("nombre"),creditos,rs.getString("escuela"),rs.getString("facultad")});
                     n++;
                 }
