@@ -131,6 +131,41 @@ a base de datos, endpoints de API y la pasarela de auto despliegue.
 ->**SQL (SQLite)**: Motor de base de datos embebido (uasd_catalogo_final.db)
 que almacena de forma relacional las facultades, escuelas, carreras y asignaturas.
 
+->**informacion agregada a la base de datos** : 
+Se agrega la facultade de arte con las carreras: 
+Licenciatura en artes plásticas (30320 - P-A-PLA)
+Licenciatura en artes plásticas mención escultura (30323 - P-ARPE)
+Licenciatura en artes plasticas mencion pintura (30322 - P- ARPP)
+Licenciatura en cinematografía y audiovisuales mención cine (303 61 - P-CINC)
+Licenciatura en cinematografía y audiovisuales mención televisión (30362 - P-CINT)
+Tecnico en fotografia y medios audiovisuales (30363 - P-FOTA)
+Licenciatura en historia y crítica del arte
+Licenciatura en artes industriales mención diseño artesanal (30372 - P-AIDA) 
+Licenciatura en artes industriales mención diseño industrial (30373 - P-AIDI) 
+Licenciatura en artes industriales mención diseño de modas (30371 - P-AIDM) 
+Licenciatura en música mención teoría y educación musical (30355 - P-MUST)
+Licenciatura en música (30350 - P-MUS)
+Licenciatura en publicidad mención diseño (30332 - P-ARD)
+Licenciatura en publicidad mención ilustración (30331 - P-ARPI)
+Licenciatura en publicidad mención creatividad y gerencia (30333 - P-UBC)
+Licenciatura en teatro (3040 - P-TEAA)	
+Licenciatura en teatro mención actuación (3041 - P-TEEA)	
+Licenciatura en teatro mención dramaturgia (30342 - P-TEDR)	
+Licenciatura en teatro mención en dirección (30343 - P-TEAI)
+
+Se agrega la facultad de ciencias con las carreras: 
+Licenciatura en biología (40201- P-biol)
+Licenciatura en geografía (40302 - P-geog)
+Licenciatura en geografía mención Recursos naturales y ecotur (40303 - P-ecoot)
+Licenciatura en geografía mención representación espacial (40303 - P-geor)
+Licenciatura en física (40401 - P-fisi)
+Licenciatura en informática (40601 - P-info)
+Licenciatura en matemáticas (40603 - P-mate)
+Licenciatura en microbiología (40701 - P-mirc)
+Licenciatura en química (40801 - P-quim)
+Tecnólogo superior en alimentos (40803 - P-tasl)
+
+
 ->**JSP (JavaServer Pages)**: Motor de plantillas utilizado para renderizar la vista principal desde el servidor.
 
 ->**HTML5 y CSS3**: Estructuración semántica y diseño visual responsivo con temática institucional
@@ -152,6 +187,7 @@ Conocido como el cerebro de la aplicación. Se encarga de almacenar la informaci
 
 ->**ConexionDB.java (Base de Datos)**: Crea el archivo uasd_catalogo_final.db en SQLite y ejecuta las sentencias INSERT
 para poblar las 9 facultades, 50 escuelas, 61 carreras y todos los pensum automáticamente.
+
 
 ->**Item.java (Modelo)**: Define la estructura básica (id y nombre) para transportar los registros de la base de datos hacia los controladores.
 
