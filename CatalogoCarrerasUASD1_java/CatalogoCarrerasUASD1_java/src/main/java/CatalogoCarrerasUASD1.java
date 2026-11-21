@@ -41,6 +41,8 @@ public class CatalogoCarrerasUASD1 extends JFrame {
     private void inicializarBaseDatosSQLite() {
         try {
             Class.forName("org.sqlite.JDBC");
+            System.out.println("BASE DE DATOS UTILIZADA: "
+                    + new java.io.File("uasd_catalogo.db").getAbsolutePath());
             try (Connection conn = DriverManager.getConnection(URL_BD);
                  Statement stmt = conn.createStatement()) {
                 stmt.execute("CREATE TABLE IF NOT EXISTS usuarios (usuario TEXT PRIMARY KEY, clave TEXT)");
