@@ -14,13 +14,13 @@ Aplicación de escritorio Java Swing para consultar el catálogo académico UASD
 - Columna de créditos en la tabla.
 - Los créditos se muestran como "No registrado" cuando la base de datos contiene 0, para no inventar datos académicos.
 - Mantiene los logos oficiales incluidos por el usuario y conserva su proporción al redimensionarlos.
-- Una covinacion de colores armonica que permite apreciar con claridad el contenido
+- Una covinacion de colores armonica que permite apreciar con claridad el contenido.
 
 ## Datos
 La base incluida contiene 9 facultades, 50 escuelas y 58 carreras.
 
 ## Resolucion los creditos créditos
-se agregaron a las base de datos los creditos de las carreras de las 58 carreras que posee este catalogo
+Se agregaron a la base de datos los creditos de las 58 carreras que posee este catalogo.
 
 
 ## Acceso de prueba
