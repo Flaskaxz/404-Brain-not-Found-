@@ -1,5 +1,69 @@
 ---**Proyecto desarrollado por el equipo: 404: Brain Not Found**---
 
+## **Bienvenido al Repositorio Del Equipo 404:Brain Not Found**
+
+**Instrucciones para el uso e instalación de cada uno de los programas.**
+
+
+1. Java Development Kit (JDK)
+
+Es el motor que permite compilar y correr programas escritos en Java.
+ • Versión recomendada: JDK 11, JDK 17 o JDK 21 (cualquiera funciona perfectamente).
+
+2. Un Entorno de Desarrollo (IDE)
+
+Aunque se puede ejecutar desde la consola, lo más cómodo es usar un editor diseñado para Java como:
+ • Apache NetBeans (el más usado en universidades y el mismo que se vio en tu captura anterior).
+ • También sirven IntelliJ IDEA, Eclipse o Visual Studio Code (con el paquete de extensiones de Java).
+
+3. El controlador de SQLite (sqlite-jdbc)
+
+En los siguientes programas se usa una base de datos local SQLite (org.sqlite.JDBC), la cual no viene incluida por defecto en Java.
+ • Necesitas descargar el archivo sqlite-jdbc-3.45.1.0.jar (que puedes buscarlo en GitHub como xerial sqlite-jdbc o en Maven Repository).
+ • Cómo agregarlo en NetBeans o tu IDE preferido: Haz clic derecho en la carpeta Libraries de tu proyecto > Add JAR/Folder... y selecciona el archivo .jar descargado.(se recomienda mantener una ruta estable en sistema de archivos)
+
+**Dependencias** 
+ 
+1. Dependencias para el Proyecto de Escritorio (CatalogoCarrerasUASD1)
+
+Este proyecto es muy ligero y solo necesita una dependencia externa:
+• Driver JDBC de SQLite (sqlite-jdbc).
+
+• Archivo: sqlite-jdbc-3.45.x.x.jar (o cualquier versión reciente 3.x).
+
+• Para qué sirve: Permite que Java se conecte, cree y consulte el archivo de base de datos local uasd_catalogo.db.
+
+• Nota: Las librerías gráficas (javax.swing, java.awt) y SQL base (java.sql) ya vienen incluidas por defecto dentro del JDK de Java, por lo que no se descargan.
+
+	
+2. Dependencias para la Aplicación Web (WebCatalogo)
+
+Al ser un proyecto web con Servlets y una API, requiere las siguientes dependencias en su carpeta Libraries (o en el archivo pom.xml si usas Maven):
+
+Obligatorias (para que compile el proyecto)
+
+• API de Servlets (Jakarta / Java EE Web API)
+	• Archivo: jakarta.servlet-api.jar (si usas Tomcat 10 o superior) o javax.servlet-api.jar (si usas Tomcat 9 o inferior).
+	• Para qué sirve: Permite usar las clases HttpServlet, HttpServletRequest y HttpServletResponse en tus archivos MainServlet.java y ApiServlet.java. (Normalmente NetBeans la agrega automáticamente al vincular el servidor Apache Tomcat).
+• Driver de Base de Datos (según lo que use ConexionDB.java)
+	• Si usa SQLite: sqlite-jdbc-3.45.x.x.jar
+	• Si usa MySQL: mysql-connector-j-8.x.x.jar
+	• Para qué sirve: Conecta tu aplicación web con el gestor de base de datos.
+
+(Funciones de ApiServlet)
+
+• Procesador de JSON (Gson o Jackson)
+  • Archivo: gson-2.10.x.jar (de Google) o json-20240303.jar (org.json).
+  • Para qué sirve: Convierte las listas de objetos de tu clase Item.java en texto formato JSON para que el navegador o JavaScript puedan leerlos desde 
+    ApiServlet.
+
+• JSTL (JavaServer Pages Standard Tag Library) (Solo si usas archivos .jsp con etiquetas <c:forEach>)
+	• Archivo: jakarta.servlet.jsp.jstl-api.jar y jakarta.servlet.jsp.jstl.jar.
+	• Para qué sirve: Facilita mostrar listas de datos y condicionales dentro de las páginas JSP sin escribir tanto código Java mezclado con HTML.
+
+
+
+
 ## En la carpeta Catalogo carreras UASD1 encontrar la :
 
 ## Aplicación de escritorio en Java (Swing) conectada a una base de datos SQLite que funciona como un Catálogo Académico de las carreras de la UASD.
